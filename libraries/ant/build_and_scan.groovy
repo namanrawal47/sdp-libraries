@@ -34,17 +34,14 @@ void call(){
             def sonar_timeout = config.sonar.timeout ?: 300
             ant_command += " -Dsonar.ws.timeout=${sonar_timeout}"
             //ant_command += " -Dsonar.ws.timeout=${300}"
-          }
+          } else { error "You must provide sonar flags for step build_and_scan()" }
 
           echo "current ant command: " + ant_command
           
           //check Jenkins agent type and run command
           if(pipelineConfig.agent_type == "windows") {
             bat ant_command
-          }
-  	      else {
-            sh ant_command
-          } // end else block
+          } else { sh ant_command }
         } // end dir block
     } // end stage block
 }
