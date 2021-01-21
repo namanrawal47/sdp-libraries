@@ -3,6 +3,6 @@ void call() {
     env.ForEmailPlugin = env.WORKSPACE      
     emailext body: '''${SCRIPT, template="groovy_html.template"}''', 
     subject: currentBuild.currentResult + " : " + env.JOB_NAME, 
-    to: 'rawal_naman@bah.com, oh_jeffrey@bah.com'
+    to: 'joe@example.com'
   }
 }
