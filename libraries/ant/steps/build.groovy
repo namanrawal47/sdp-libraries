@@ -9,7 +9,7 @@ void call(){
             ant_command += " " + config.build_command
           }  else { error("missing build command") }
           if(config.build_file) {
-            ant_command += " " + config.build_file
+            ant_command += " -f " + config.build_file
           } else { error("missing build file") }
           
           // do not run if SonarQube flag is set to 'true'
