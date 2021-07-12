@@ -2,7 +2,7 @@ void call(){
     stage("Curl: Upload to Artifact Repository"){
         withCredentials(
             [usernamePassword(
-            credentialsId: pipelineConfig.nexus_creds, 
+            credentialsId: config.repository_creds, 
             usernameVariable: 'nexus_username',
             passwordVariable: 'nexus_password')]) {
             dir(config.directory){
