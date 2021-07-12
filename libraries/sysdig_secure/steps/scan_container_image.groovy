@@ -3,7 +3,7 @@
   This software package is licensed under the Booz Allen Public License. The license can be found in the License file or at http://boozallen.github.io/licenses/bapl
 */
 
-package libraries.sysdig_secure
+package libraries.sysdig_secure.steps
 
 void call(){
   stage("Scanning Container Image: Sysdig Secure"){
@@ -22,9 +22,10 @@ void call(){
             get_images_to_build().each{ img ->
               String image = "${img.registry}/${img.repo}:${img.tag}"
               imageThreads[image] = {
-                login_to_registry()
-                sh "docker pull ${image}"
-                sh "sh inline_scan.sh analyze -R ${resultsDir} ${sArg} -k $TOKEN ${image}"
+                login_to_registry{
+                  sh "docker pull ${image}"
+                  sh "sh inline_scan.sh analyze -R ${resultsDir} ${sArg} -k $TOKEN ${image}"
+                }
               }
             }
             try{

@@ -3,7 +3,7 @@
   This software package is licensed under the Booz Allen Public License. The license can be found in the License file or at http://boozallen.github.io/licenses/bapl
 */
 
-package libraries.kubernetes
+package libraries.kubernetes.steps
 
 void call(app_env){
   stage "Deploy to ${app_env.long_name}", {
@@ -124,6 +124,6 @@ void push_config_update(values_file){
   echo "updating values file -> ${values_file}"
   git add: values_file
   git commit: "Updating ${values_file} for ${env.REPO_NAME} images"
-  git push
+  git "push"
 }
 

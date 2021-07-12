@@ -3,12 +3,16 @@
   This software package is licensed under the Booz Allen Public License. The license can be found in the License file or at http://boozallen.github.io/licenses/bapl
 */
 
-package libraries.docker
+package libraries.docker.steps
 
-void call(){
-  def (image_repo, image_repo_cred) = get_registry_info()
+void call(String _url = null, String _credentialId = null, def body){
 
-  withCredentials([usernamePassword(credentialsId: image_repo_cred, passwordVariable: 'pass', usernameVariable: 'user')]) {
-    sh "echo ${pass} | docker login -u ${user} --password-stdin ${image_repo}"
-  }
+  def (repository, cred) = get_registry_info()
+
+  String protocol = config.registry_protocol ?: "https://"
+  String url = _url ?: "${protocol}${repository}"
+  String credentialId = _credentialId ?: cred
+
+  docker.withRegistry(url, credentialId, body)
+
 }
